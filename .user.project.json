@@ -25,7 +25,11 @@
         "id": 1978925,
         "runnerId": "webapprunner",
         "displayName": "App in FLP Sandbox",
+<<<<<<< HEAD
         "lastRunTimeStamp": 1493888494600
+=======
+        "lastRunTimeStamp": 1493889622753
+>>>>>>> branch 'master' of https://github.com/RitterMa93/TicketsManagement.git
       }
     },
     {

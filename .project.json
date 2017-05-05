@@ -12,7 +12,8 @@
     "excludedFiles": [
       "test.html"
     ],
-    "buildRequired": true
+    "buildRequired": true,
+    "lastBuildDateTime": "Thu, 04 May 2017 09:11:40 GMT"
   },
   "generation": [
     {
@@ -46,5 +47,10 @@
     "notifyBeforePushLevel": "Error",
     "blockPush": false,
     "blockPushLevel": "Error"
+  },
+  "hcpdeploy": {
+    "account": "i313404trial",
+    "name": "ticketsmanagement",
+    "lastVersionWeTriedToDeploy": "1.0.0"
   }
 }

@@ -67,6 +67,9 @@
   "dataBinding": {
     "/webapp/view/Master.view.xml": {
       "entitySet": "/TICKETOVERDUESet"
+    },
+    "/webapp/view/Detail.view.xml": {
+      "entitySet": "/TICKETOVERDUESet"
     }
   }
 }

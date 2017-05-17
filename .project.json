@@ -63,5 +63,10 @@
         }
       }
     ]
+  },
+  "dataBinding": {
+    "/webapp/view/Master.view.xml": {
+      "entitySet": "/TICKETOVERDUESet"
+    }
   }
 }

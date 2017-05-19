@@ -5,7 +5,7 @@ sap.ui.define([
 	"TicketsManagement/model/formatter",
 	"sap/m/MessageBox",
 	"sap/m/MessageToast"
-], function(BaseController, JSONModel, formatter, MessageBox, MessageToast, Filter) {
+], function(BaseController, JSONModel, formatter, MessageBox, MessageToast, Filter, Fragment) {
 	"use strict";
 	return BaseController.extend("TicketsManagement.controller.Detail", {
 		formatter: formatter,
@@ -359,24 +359,40 @@ sap.ui.define([
 		 *@memberOf TicketsManagement.controller.Detail
 		 */
 		handleValueHelp: function(oEvent) {
+			alert("Value help request button pressed!");
+			
 			var sInputValue = oEvent.getSource().getValue();
+
 			this.inputId = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialog) {
-				this._valueHelpDialog = sap.ui.xmlfragment("sap.m.sample.InputAssisted.Dialog", this);
+				this._valueHelpDialog = sap.ui.xmlfragment(
+					"sap.m.sample.InputAssisted.Dialog",
+					this
+				);
 				this.getView().addDependent(this._valueHelpDialog);
 			}
+
 			// create a filter for the binding
-			this._valueHelpDialog.getBinding("items").filter([new Filter("Name", sap.ui.model.FilterOperator.Contains, sInputValue)]);
+			this._valueHelpDialog.getBinding("items").filter([new Filter(
+				"Name",
+				sap.ui.model.FilterOperator.Contains, sInputValue
+			)]);
+
 			// open value help dialog filtered by the input value
 			this._valueHelpDialog.open(sInputValue);
 		},
-		_handleValueHelpSearch: function(evt) {
+
+		_handleValueHelpSearch : function (evt) {
 			var sValue = evt.getParameter("value");
-			var oFilter = new Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
+			var oFilter = new Filter(
+				"Name",
+				sap.ui.model.FilterOperator.Contains, sValue
+			);
 			evt.getSource().getBinding("items").filter([oFilter]);
 		},
-		_handleValueHelpClose: function(evt) {
+
+		_handleValueHelpClose : function (evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var productInput = this.getView().byId(this.inputId);

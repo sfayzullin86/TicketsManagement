@@ -29,7 +29,7 @@
 					<Label text="Responsible"/>
 					<Input id="responsibleInput" type="Text" placeholder="Assign responsible ..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelp" required="true" suggestionItems="{/PERSONASSet}" value="{OwnerNameText}" dateFormat="">
 						<suggestionItems>
-							<core:Item text="{UserName} {RoleTxt}" id="personaitems_id" key="{User}{RoleId}"/>
+							<core:Item text="{UserName}" id="personaitems_id" key="{User}"/>
 						</suggestionItems>
 					</Input>
 				</f:content>

@@ -7,27 +7,29 @@
 					<Label text="Description" required="false"/> 
 					<Input name="Description" id="Description_id" valueLiveUpdate="true" liveChange="_validateSaveEnablement" enabled="true" visible="true" editable="false" value="{Description}" dateFormat="" required="true"/>
 					<Label text="Priority" required="false"/>
-					<ComboBox value="List Item 1" selectedKey="{Priority}" id="Priority_id" name="Test" placeholder="{PriorityTxt}" items="{/PRIORITYSet}" required="true">
+					<ComboBox selectedKey="{Priority}" id="Priority_id" name="Test" placeholder="{PriorityTxt}" items="{/PRIORITYSet}" required="true">
 					    <items>					        
 					    	<core:ListItem text="{PriorityTxt}" key="{Priority}" id="priorityitem_id"/>
 					    </items>
 					</ComboBox>
 					<Label text="Status" required="false"/>
-					<ComboBox value="List Item 1" selectedKey="{Status}" id="Status_id" placeholder="{StatusTxt}" items="{/STATUSSet}">
+					<ComboBox selectedKey="{Status}" id="Status_id" placeholder="{StatusTxt}" items="{/STATUSSet}">
 					    <items>
-					        <core:ListItem text="{StatusTxt}" key="{Status}" id="stitem_id"/></items>
+					        <core:ListItem text="{StatusTxt}" key="{Status}" id="stitem_id"/>
+					    </items>
 					</ComboBox>
 					<Label text="Category" required="false"/>
-					<ComboBox value="List Item 1" selectedKey="{CategoryId}" id="Category_id" placeholder="{SolcatTxt}" items="{/SOLCATSet}" editable="false" required="true">
+					<ComboBox selectedKey="{CategoryId}" id="Category_id" placeholder="{SolcatTxt}" items="{/SOLCATSet}" editable="false" required="true">
 					    <items>
-					        <core:ListItem text="{SolcatTxt}" key="{SolcatId}" id="citem_id"/></items>
+					        <core:ListItem text="{SolcatTxt}" key="{SolcatId}" id="citem_id"/>
+					    </items>
 					</ComboBox>
 					<Label text="Detail Description"/>
 					<TextArea name="DetailDescription" id="DetailDescription" value="{ path: 'TicketTxt', type: 'sap.ui.model.odata.type.String'}" growing="true" growingMaxLines="20" width="100%" editable="false" rows="5" required="true"/>
 					<Label text="Responsible"/>
-					<Input id="responsibleInput" type="Text" placeholder="Enter Responsible ..." value="{Priority}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelp" required="true" suggestionItems="{/PRIORITYSet}">
+					<Input id="responsibleInput" type="Text" placeholder="Assign responsible ..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelp" required="true" suggestionItems="{/PERSONASSet}" value="{OwnerNameText}" dateFormat="">
 						<suggestionItems>
-							<core:Item text="{PriorityTxt}" id="personaitems_id" key="{Priority}"/>
+							<core:Item text="{UserName} {RoleTxt}" id="personaitems_id" key="{User}{RoleId}"/>
 						</suggestionItems>
 					</Input>
 				</f:content>

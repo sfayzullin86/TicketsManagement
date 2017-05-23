@@ -41,5 +41,16 @@
 		<semantic:cancelAction>
 		    <semantic:CancelAction id="CancelButton_id" press="onCancel"/>
 		</semantic:cancelAction>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+		<!--
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press="onShareInJamPress"/>
+		</semantic:shareInJamAction>
+		-->
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id="shareTile" title="{detailView>/saveAsTileTitle}" subtitle="Assign Responsible"/>
+		</semantic:saveAsTileAction>
 	</semantic:DetailPage>
 </mvc:View>

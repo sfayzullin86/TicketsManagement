@@ -62,44 +62,7 @@ sap.ui.define([
 			oShareDialog.open();
 		},
 		 */
-		
-		/**
-		 * Event handler (attached declaratively) for the view delete button. Deletes the selected item. 
-		 * @function
-		 * @public
-		 */
-		onDelete: function() {
-			var that = this;
-			var oViewModel = this.getModel("detailView"),
-				sPath = oViewModel.getProperty("/sObjectPath"),
-				sObjectHeader = this._oODataModel.getProperty(sPath + "/Description"),
-				sQuestion = this._oResourceBundle.getText("deleteText", sObjectHeader),
-				sSuccessMessage = this._oResourceBundle.getText("deleteSuccess", sObjectHeader);
-			var fnMyAfterDeleted = function() {
-				MessageToast.show(sSuccessMessage);
-				oViewModel.setProperty("/busy", false);
-				var oNextItemToSelect = that.getOwnerComponent().oListSelector.findNextItem(sPath);
-				that.getModel("appView").setProperty("/itemToSelect", oNextItemToSelect.getBindingContext().getPath()); //save last deleted
-			};
-			this._confirmDeletionByUser({
-				question: sQuestion
-			}, [sPath], fnMyAfterDeleted);
-		},
-		
-		/**
-		 * Event handler (attached declaratively) for the view edit button. Open a view to enable the user update the selected item. 
-		 * @function
-		 * @public
-		 */
-		onEdit: function() {
-			this.getModel("appView").setProperty("/addEnabled", false);
-			var sObjectPath = this.getView().getElementBinding().getPath();
-			this.getRouter().getTargets().display("create", {
-				mode: "update",
-				objectPath: sObjectPath
-			});
-		},
-		
+
 		/**
 		 * Event handler (attached declaratively) for the view save button. Saves the changes added by the user. 
 		 * @function
@@ -366,7 +329,6 @@ sap.ui.define([
 			oPromise.then(fnSuccess, fnFailed);
 			return oPromise;
 		}
-		
-		
+
 	});
 });

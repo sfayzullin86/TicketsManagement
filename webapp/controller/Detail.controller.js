@@ -4,11 +4,15 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"TicketsManagement/model/formatter",
 	"sap/m/MessageBox",
-	"sap/m/MessageToast"
-], function(BaseController, JSONModel, formatter, MessageBox, MessageToast, Filter, Fragment) {
+	"sap/m/MessageToast",
+	"jquery.sap.global"
+], function(BaseController, JSONModel, formatter, MessageBox, MessageToast) {
 	"use strict";
+	
 	return BaseController.extend("TicketsManagement.controller.Detail", {
+		
 		formatter: formatter,
+		
 		/* =========================================================== */
 		/* lifecycle methods                                           */
 		/* =========================================================== */
@@ -26,6 +30,7 @@ sap.ui.define([
 			this._oODataModel = this.getOwnerComponent().getModel();
 			this._oResourceBundle = this.getResourceBundle();
 		},
+		
 		/* =========================================================== */
 		/* event handlers                                              */
 		/* =========================================================== */
@@ -38,10 +43,11 @@ sap.ui.define([
 			sap.m.URLHelper.triggerEmail(null, oViewModel.getProperty("/shareSendEmailSubject"), oViewModel.getProperty(
 				"/shareSendEmailMessage"));
 		},
+		
 		/**
 		 * Event handler when the share in JAM button has been clicked
 		 * @public
-		 */
+		 *
 		onShareInJamPress: function() {
 			var oViewModel = this.getModel("detailView"),
 				oShareDialog = sap.ui.getCore().createComponent({
@@ -55,6 +61,8 @@ sap.ui.define([
 				});
 			oShareDialog.open();
 		},
+		 */
+		
 		/**
 		 * Event handler (attached declaratively) for the view delete button. Deletes the selected item. 
 		 * @function
@@ -77,6 +85,7 @@ sap.ui.define([
 				question: sQuestion
 			}, [sPath], fnMyAfterDeleted);
 		},
+		
 		/**
 		 * Event handler (attached declaratively) for the view edit button. Open a view to enable the user update the selected item. 
 		 * @function
@@ -312,6 +321,7 @@ sap.ui.define([
 				}
 			});
 		},
+		
 		/**
 		 * Performs the deletion of a list of entities.
 		 * @param {array} aPaths -  Array of strings representing the context paths to the entities to be deleted. Currently only one is supported.
@@ -335,6 +345,7 @@ sap.ui.define([
 			}.bind(this);
 			return this._deleteOneEntity(aPaths[0], fnSuccess, fnFailed);
 		},
+		
 		/**
 		 * Deletes the entity from the odata model
 		 * @param {array} aPaths -  Array of strings representing the context paths to the entities to be deleted. Currently only one is supported.
@@ -354,51 +365,8 @@ sap.ui.define([
 			}.bind(this));
 			oPromise.then(fnSuccess, fnFailed);
 			return oPromise;
-		},
-		/**
-		 *@memberOf TicketsManagement.controller.Detail
-		 */
-		handleValueHelp: function(oEvent) {
-			alert("Value help request button pressed!");
-			
-			var sInputValue = oEvent.getSource().getValue();
-
-			this.inputId = oEvent.getSource().getId();
-			// create value help dialog
-			if (!this._valueHelpDialog) {
-				this._valueHelpDialog = sap.ui.xmlfragment(
-					"sap.m.sample.InputAssisted.Dialog",
-					this
-				);
-				this.getView().addDependent(this._valueHelpDialog);
-			}
-
-			// create a filter for the binding
-			this._valueHelpDialog.getBinding("items").filter([new Filter(
-				"Name",
-				sap.ui.model.FilterOperator.Contains, sInputValue
-			)]);
-
-			// open value help dialog filtered by the input value
-			this._valueHelpDialog.open(sInputValue);
-		},
-
-		_handleValueHelpSearch : function (evt) {
-			var sValue = evt.getParameter("value");
-			var oFilter = new Filter(
-				"Name",
-				sap.ui.model.FilterOperator.Contains, sValue
-			);
-			evt.getSource().getBinding("items").filter([oFilter]);
-		},
-
-		_handleValueHelpClose : function (evt) {
-			var oSelectedItem = evt.getParameter("selectedItem");
-			if (oSelectedItem) {
-				var productInput = this.getView().byId(this.inputId);
-				productInput.setValue(oSelectedItem.getTitle());
-			}
-			evt.getSource().getBinding("items").filter([]);
 		}
+		
+		
 	});
 });

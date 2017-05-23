@@ -8,11 +8,8 @@ sap.ui.define([
 	"jquery.sap.global"
 ], function(BaseController, JSONModel, formatter, MessageBox, MessageToast) {
 	"use strict";
-	
 	return BaseController.extend("TicketsManagement.controller.Detail", {
-		
 		formatter: formatter,
-		
 		/* =========================================================== */
 		/* lifecycle methods                                           */
 		/* =========================================================== */
@@ -30,7 +27,6 @@ sap.ui.define([
 			this._oODataModel = this.getOwnerComponent().getModel();
 			this._oResourceBundle = this.getResourceBundle();
 		},
-		
 		/* =========================================================== */
 		/* event handlers                                              */
 		/* =========================================================== */
@@ -43,7 +39,6 @@ sap.ui.define([
 			sap.m.URLHelper.triggerEmail(null, oViewModel.getProperty("/shareSendEmailSubject"), oViewModel.getProperty(
 				"/shareSendEmailMessage"));
 		},
-		
 		/**
 		 * Event handler when the share in JAM button has been clicked
 		 * @public
@@ -62,7 +57,6 @@ sap.ui.define([
 			oShareDialog.open();
 		},
 		 */
-
 		/**
 		 * Event handler (attached declaratively) for the view save button. Saves the changes added by the user. 
 		 * @function
@@ -71,17 +65,13 @@ sap.ui.define([
 		onSave: function() {
 			var that = this,
 				oModel = this.getModel();
-		
 			if (!oModel.hasPendingChanges()) {
-				MessageBox.information(
-					this._oResourceBundle.getText("noChangesMessage"), {
-						id: "noChangesInfoMessageBox",
-						styleClass: that.getOwnerComponent().getContentDensityClass()
-					}
-				);
+				MessageBox.information(this._oResourceBundle.getText("noChangesMessage"), {
+					id: "noChangesInfoMessageBox",
+					styleClass: that.getOwnerComponent().getContentDensityClass()
+				});
 				return;
 			}
-			
 			oModel.attachEventOnce("batchRequestCompleted", function(oEvent) {
 				if (that._checkIfBatchRequestSucceeded(oEvent)) {
 					that._fnUpdateSuccess();
@@ -92,7 +82,6 @@ sap.ui.define([
 			});
 			oModel.submitChanges();
 		},
-
 		_checkIfBatchRequestSucceeded: function(oEvent) {
 			var oParams = oEvent.getParameters();
 			var aRequests = oEvent.getParameters().requests;
@@ -111,7 +100,6 @@ sap.ui.define([
 				return false;
 			}
 		},
-		
 		/**
 		 * Event handler (attached declaratively) for the view cancel button. Asks the user confirmation to discard the changes. 
 		 * @function
@@ -119,22 +107,22 @@ sap.ui.define([
 		 */
 		onCancel: function(oEvent) {
 			var that = this;
-			
 			var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
 			var fnLeave = function() {
 				that._oODataModel.resetChanges();
 				that._showDetail(oItem);
 			};
-			
 			if (this._oODataModel.hasPendingChanges()) {
 				//pending changes, ask user what he wants to do
 				var sQuestion = this.getResourceBundle().getText("warningConfirm");
 				var sTitle = this.getResourceBundle().getText("warning");
-	
 				MessageBox.show(sQuestion, {
 					icon: MessageBox.Icon.WARNING,
 					title: sTitle,
-					actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+					actions: [
+						MessageBox.Action.OK,
+						MessageBox.Action.CANCEL
+					],
 					onClose: function(oAction) {
 						if (oAction === MessageBox.Action.OK) {
 							//reset the changes and reload ticket information
@@ -143,12 +131,11 @@ sap.ui.define([
 							//no changes, so do nothing
 						}
 					}
-			});
+				});
 			} else {
 				//no pending changes, so do nothing
 			}
 		},
-		
 		/* =========================================================== */
 		/* begin: internal methods                                     */
 		/* =========================================================== */
@@ -284,7 +271,6 @@ sap.ui.define([
 				}
 			});
 		},
-		
 		/**
 		 * Performs the deletion of a list of entities.
 		 * @param {array} aPaths -  Array of strings representing the context paths to the entities to be deleted. Currently only one is supported.
@@ -308,7 +294,6 @@ sap.ui.define([
 			}.bind(this);
 			return this._deleteOneEntity(aPaths[0], fnSuccess, fnFailed);
 		},
-		
 		/**
 		 * Deletes the entity from the odata model
 		 * @param {array} aPaths -  Array of strings representing the context paths to the entities to be deleted. Currently only one is supported.
@@ -328,7 +313,12 @@ sap.ui.define([
 			}.bind(this));
 			oPromise.then(fnSuccess, fnFailed);
 			return oPromise;
+		},
+		/**
+		 *@memberOf TicketsManagement.controller.Detail
+		 */
+		onValueHelpRequest: function() {
+			alert("value help request pressed");
 		}
-
 	});
 });

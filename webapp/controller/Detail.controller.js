@@ -1,12 +1,12 @@
-/*global location */
 sap.ui.define([
 	"TicketsManagement/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
 	"TicketsManagement/model/formatter",
 	"sap/m/MessageBox",
 	"sap/m/MessageToast",
-	"jquery.sap.global"
-], function(BaseController, JSONModel, formatter, MessageBox, MessageToast) {
+	"jquery.sap.global",
+	'sap/ui/model/Filter'
+], function(BaseController, JSONModel, formatter, MessageBox, MessageToast, Filter) {
 	"use strict";
 	return BaseController.extend("TicketsManagement.controller.Detail", {
 		formatter: formatter,
@@ -314,11 +314,62 @@ sap.ui.define([
 			oPromise.then(fnSuccess, fnFailed);
 			return oPromise;
 		},
+		
 		/**
-		 *@memberOf TicketsManagement.controller.Detail
+		 *handels the value help request dialog window
 		 */
-		onValueHelpRequest: function() {
-			alert("value help request pressed");
+		onValueHelpRequest: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+ 
+			this.inputId = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpDialog) {
+				this._valueHelpDialog = sap.ui.xmlfragment(
+					"TicketsManagement.view.Dialog",
+					this
+				);
+				this.getView().addDependent(this._valueHelpDialog);
+			}
+			
+			/* maybe does not work because the set is not filterable???
+			// create a filter for the binding
+			this._valueHelpDialog.getBinding("items").filter([new Filter(
+				"Name",
+				sap.ui.model.FilterOperator.Contains, sInputValue
+			)]);
+			*/
+			
+			// open value help dialog filtered by the input value
+			this._valueHelpDialog.open();	//sInputValue
+		},
+		
+		_handleValueHelpSearch : function (evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter(
+				"Name",
+				sap.ui.model.FilterOperator.Contains, sValue
+			);
+			evt.getSource().getBinding("items").filter([oFilter]);
+		},
+		
+		_handleValueHelpClose : function (evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = this.getView().byId(this.inputId),
+					oText = this.getView().byId('selectedKey'),
+					sDescription = oSelectedItem.getDescription();
+ 
+				productInput.setSelectedKey(sDescription);
+				oText.setText(sDescription);
+			}
+			evt.getSource().getBinding("items").filter([]);
 		}
+		/*
+		suggestionItemSelected: function (evt) {
+			var oItem = evt.getParameter('selectedItem'),
+				oText = this.getView().byId('responsibleInput'),
+				sKey = oItem ? oItem.getKey() : '';
+			oText.setText(sKey);
+		}*/
 	});
 });

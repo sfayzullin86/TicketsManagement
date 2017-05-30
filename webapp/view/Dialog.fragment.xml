@@ -1,5 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" viewName="Value Help Dialog">
-	<SelectDialog title="Assign responsible person" class="sapUiPopupWithPadding" items="{/PERSONASSet}" search="_handleValueHelpSearch" confirm="_handleValueHelpClose" cancel="_handleValueHelpClose">
+	<SelectDialog title="Assign responsible person" class="sapUiPopupWithPadding" items="{path: '/PERSONASSet', sorter: {path:'UserName'}}" search="_handleValueHelpSearch" confirm="_handleValueHelpClose" cancel="_handleValueHelpClose">
+		<items>
 		<StandardListItem title="{UserName}" description="{User}"/>
+		</items>
 	</SelectDialog>
 </core:FragmentDefinition>

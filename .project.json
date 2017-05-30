@@ -77,7 +77,7 @@
       "entitySet": "/TICKETOVERDUESet"
     },
     "/webapp/view/Dialog.fragment.xml": {
-      "entitySet": ""
+      "entitySet": "/PERSONASSet"
     }
   }
 }

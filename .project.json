@@ -20,6 +20,11 @@
       "templateId": "ui5template.2masterdetailcrud",
       "templateVersion": "1.40.12",
       "dateTimeStamp": "Fri, 05 May 2017 18:40:38 GMT"
+    },
+    {
+      "templateId": "ui5template.basicSAPUI5ApplicationComponent",
+      "templateVersion": "1.4.0",
+      "dateTimeStamp": "Tue, 30 May 2017 12:59:40 GMT"
     }
   ],
   "codeCheckingTriggers": {
@@ -70,6 +75,9 @@
     },
     "/webapp/view/Detail.view.xml": {
       "entitySet": "/TICKETOVERDUESet"
+    },
+    "/webapp/view/Dialog.fragment.xml": {
+      "entitySet": ""
     }
   }
 }

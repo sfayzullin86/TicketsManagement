@@ -27,8 +27,8 @@
 					<Label text="Detail Description"/>
 					<TextArea name="DetailDescription" id="DetailDescription" value="{ path: 'TicketTxt', type: 'sap.ui.model.odata.type.String'}" growing="true" growingMaxLines="30" width="100%" editable="false" rows="10"/>
 					<Label text="Responsible"/>
-					<Input width="100%" id="responsibleidfield" value="{OwnerNameText}" fieldWidth="25%" editable="false"/>
-					<Input id="responsibleInput" type="Text" placeholder="Assign responsible ..." showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpRequest" suggestionItems="{/PERSONASSet}" suggestionItemSelected="" value="{Owner}" textFormatMode="Key" fieldWidth="75%" required="true">
+					<Input width="100%" id="responsibleidfield" fieldWidth="25%" editable="false" value="{SolvedByNameText}"/>
+					<Input id="responsibleInput" type="Text" placeholder="Assign responsible ..." showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpRequest" suggestionItems="{/PERSONASSet}" suggestionItemSelected="" value="{SolvedBy}" textFormatMode="Key" fieldWidth="75%" required="true">
 						<suggestionItems>
 							<core:ListItem key="{User}" text="{UserName}" id="personitem_id"/>
 						</suggestionItems>
